@@ -11,6 +11,13 @@ on:
           - develop
           - staging
           - production
+      app_type:
+        description: 'Select App Type (Frontend or Backend)'
+        required: true
+        type: choice
+        options:
+          - frontend
+          - backend
 
 jobs:
   build:
@@ -31,4 +38,12 @@ jobs:
       - name: Run the app
         run: |
           echo "Running in ${{ github.event.inputs.environment }} environment"
+          echo "App type: ${{ github.event.inputs.app_type }}"
+          if [ "${{ github.event.inputs.app_type }}" == "frontend" ]; then
+            echo "Running frontend..."
+            # Add commands to run frontend if needed
+          else
+            echo "Running backend..."
+            # Add commands to run backend if needed
+          fi
           node app.js
